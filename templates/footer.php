@@ -1,15 +1,15 @@
-	<!-- Start Footer Section -->
-    <footer class="footer-section">
+		<!-- Start Footer Section -->
+		<footer class="footer-section">
 			<div class="container relative">
 
 				<div class="sofa-img">
-					<img src="images/sofa.png" alt="Image" class="img-fluid">
+					<img src="<?php echo SITE_URL; ?>/assets/image/products/sofa.png" alt="Image" class="img-fluid">
 				</div>
 
 				<div class="row">
 					<div class="col-lg-8">
 						<div class="subscription-form">
-							<h3 class="d-flex align-items-center"><span class="me-1"><img src="images/envelope-outline.svg" alt="Image" class="img-fluid"></span><span>Subscribe to Newsletter</span></h3>
+							<h3 class="d-flex align-items-center"><span class="me-1"><img src='<?php echo SITE_URL?>./assets/image/icons/envelope-outline.svg' alt="mail" class="img-fluid"></span><span>Subscribe to Newsletter</span></h3>
 
 							<form action="#" class="row g-3">
 								<div class="col-auto">
@@ -19,7 +19,7 @@
 									<input type="email" class="form-control" placeholder="Enter your email">
 								</div>
 								<div class="col-auto">
-									<button class="btn btn-primary">
+									<button class="btn btn-primary mt-2">
 										<span class="fa fa-paper-plane"></span>
 									</button>
 								</div>
@@ -31,7 +31,11 @@
 
 				<div class="row g-5 mb-5">
 					<div class="col-lg-4">
-						<div class="mb-4 footer-logo-wrap"><a href="#" class="footer-logo">Furni<span>.</span></a></div>
+						<div class="mb-4 footer-logo-wrap">
+							<a href="<?php echo SITE_URL?>" class="footer-logo">
+								<img src="<?php echo SITE_URL?>./assets/image/logos/logo.png" width="220px" alt="Logo">
+							</a>
+						</div>
 						<p class="mb-4">Donec facilisis quam ut purus rutrum lobortis. Donec vitae odio quis nisl dapibus malesuada. Nullam ac aliquet velit. Aliquam vulputate velit imperdiet dolor tempor tristique. Pellentesque habitant</p>
 
 						<ul class="list-unstyled custom-social">
@@ -85,7 +89,7 @@
 				<div class="border-top copyright">
 					<div class="row pt-4">
 						<div class="col-lg-6">
-							<p class="mb-2 text-center text-lg-start">Copyright &copy;<script>document.write(new Date().getFullYear());</script>. All Rights Reserved. &mdash; Designed with love by <a href="https://untree.co">Untree.co</a> Distributed By <a hreff="https://themewagon.com">ThemeWagon</a>  <!-- License information: https://untree.co/license/ -->
+							<p class="mb-2 text-center text-lg-start">Copyright &copy;<script>document.write(new Date().getFullYear());</script>. All Rights Reserved. &mdash; Designed with love by <a href="<?php echo SITE_URL?>">Untree.co</a> Distributed By <a hreff="https://www.facebook.com/raksa.vsa/">Chhem Raksa</a>  <!-- License information: https://untree.co/license/ -->
             </p>
 						</div>
 
@@ -100,10 +104,13 @@
 				</div>
 
 			</div>
-	</footer>
-        <!-- End Footer Section -->	
-        <script src="js/bootstrap.bundle.min.js"></script>
-        <script src="js/tiny-slider.js"></script>
-        <script src="js/custom.js"></script>
+		</footer>
+		<!-- End Footer Section -->	
+
+		<!-- Link Script -->
+		<script src="<?php echo SITE_URL; ?>/assets/js/tiny-slider.js"></script>
+		<script src="<?php echo SITE_URL; ?>/assets/js/custom.js"></script>
+		<!-- link Bootstrap 5 Script -->
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js" integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq" crossorigin="anonymous"></script>
 </body>
 </html>                              

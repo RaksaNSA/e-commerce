@@ -1,28 +1,125 @@
-<?php
-// Include configuration and database connection
-require_once '../includes/config.php';
-// require_once '../includes/db.php';
 
-// Get products from database
-$query = "SELECT * FROM products";
-$result = mysqli_query($conn, $query);
-?>
+<?php require_once __DIR__ . '/../includes/config.php'; ?>
+<?php $pageTitle = 'Shop'; ?>
+<?php include_once '../templates/header.php'; ?>
+<div class="untree_co-section product-section before-footer-section">
+		    <div class="container">
+		      	<div class="row">
 
-<?php include '../templates/header.php'; ?>
+		      		<!-- Start Column 1 -->
+					<div class="col-12 col-md-4 col-lg-3 mb-5">
+						<a class="product-item" href="#">
+							<img src="<?php echo SITE_URL?>./assets/image/products/product-1.png" class="img-fluid product-thumbnail">
+							<h3 class="product-title">Nordic Chair</h3>
+							<strong class="product-price">$50.00</strong>
 
-<main class="product-listing">
-    <h1>Our Products</h1>
-    
-    <div class="products-container">
-        <?php while($product = mysqli_fetch_assoc($result)): ?>
-            <div class="product-card">
-                <img src="../assets/images/products/<?php echo $product['image']; ?>" alt="<?php echo $product['name']; ?>">
-                <h3><?php echo $product['name']; ?></h3>
-                <p class="price">$<?php echo $product['price']; ?></p>
-                <button class="add-to-cart" data-product-id="<?php echo $product['id']; ?>">Add to Cart</button>
-            </div>
-        <?php endwhile; ?>
-    </div>
-</main>
+							<span class="icon-cross">
+								<img src="<?php echo SITE_URL?>./assets/image/products/product-1.png" class="img-fluid">
+							</span>
+						</a>
+					</div> 
+					<!-- End Column 1 -->
+						
+					<!-- Start Column 2 -->
+					<div class="col-12 col-md-4 col-lg-3 mb-5">
+						<a class="product-item" href="#">
+							<img src="<?php echo SITE_URL?>./assets/image/products/product-2.png" class="img-fluid product-thumbnail">
+							<h3 class="product-title">Nordic Chair</h3>
+							<strong class="product-price">$50.00</strong>
 
-<?php include '../templates/footer.php'; ?>
+							<span class="icon-cross">
+								<img src="<?php echo SITE_URL?>./assets/image/products/product-2.png" class="img-fluid">
+							</span>
+						</a>
+					</div> 
+					<!-- End Column 2 -->
+
+					<!-- Start Column 3 -->
+					<div class="col-12 col-md-4 col-lg-3 mb-5">
+						<a class="product-item" href="#">
+                            <img src="<?php echo SITE_URL?>./assets/image/products/product-3.png" class="img-fluid product-thumbnail">
+							<h3 class="product-title">Kruzo Aero Chair</h3>
+							<strong class="product-price">$78.00</strong>
+
+							<span class="icon-cross">
+								<img src="<?php echo SITE_URL?>./assets/image/products/product-3.png" class="img-fluid">
+							</span>
+						</a>
+					</div>
+					<!-- End Column 3 -->
+
+					<!-- Start Column 4 -->
+					<div class="col-12 col-md-4 col-lg-3 mb-5">
+						<a class="product-item" href="#">
+                        <img src="<?php echo SITE_URL?>./assets/image/products/product-1.png" class="img-fluid product-thumbnail">
+							<h3 class="product-title">Ergonomic Chair</h3>
+							<strong class="product-price">$43.00</strong>
+
+							<span class="icon-cross">
+								<img src="<?php echo SITE_URL?>./assets/image/products/product-1.png" class="img-fluid">
+							</span>
+						</a>
+					</div>
+					<!-- End Column 4 -->
+
+
+					<!-- Start Column 1 -->
+					<div class="col-12 col-md-4 col-lg-3 mb-5">
+						<a class="product-item" href="#">
+							<img src="<?php echo SITE_URL?>./assets/image/products/product-1.png" class="img-fluid product-thumbnail">
+							<h3 class="product-title">Nordic Chair</h3>
+							<strong class="product-price">$50.00</strong>
+
+							<span class="icon-cross">
+								<img src="<?php echo SITE_URL?>./assets/image/products/product-1.png" class="img-fluid">
+							</span>
+						</a>
+					</div> 
+					<!-- End Column 1 -->
+						
+					<!-- Start Column 2 -->
+					<div class="col-12 col-md-4 col-lg-3 mb-5">
+						<a class="product-item" href="#">
+							<img src="<?php echo SITE_URL?>./assets/image/products/product-2.png" class="img-fluid product-thumbnail">
+							<h3 class="product-title">Nordic Chair</h3>
+							<strong class="product-price">$50.00</strong>
+
+							<span class="icon-cross">
+								<img src="<?php echo SITE_URL?>./assets/image/products/product-2.png" class="img-fluid">
+							</span>
+						</a>
+					</div> 
+					<!-- End Column 2 -->
+
+					<!-- Start Column 3 -->
+					<div class="col-12 col-md-4 col-lg-3 mb-5">
+						<a class="product-item" href="#">
+							<img src="<?php echo SITE_URL?>./assets/image/products/product-3.png" class="img-fluid product-thumbnail">
+							<h3 class="product-title">Kruzo Aero Chair</h3>
+							<strong class="product-price">$78.00</strong>
+
+							<span class="icon-cross">
+								<img src="<?php echo SITE_URL?>./assets/image/products/product-3.png" class="img-fluid">
+							</span>
+						</a>
+					</div>
+					<!-- End Column 3 -->
+
+					<!-- Start Column 4 -->
+					<div class="col-12 col-md-4 col-lg-3 mb-5">
+						<a class="product-item" href="#">
+							<img src="<?php echo SITE_URL?>./assets/image/products/product-1.png" class="img-fluid product-thumbnail">
+							<h3 class="product-title">Ergonomic Chair</h3>
+							<strong class="product-price">$43.00</strong>
+
+							<span class="icon-cross">
+								<img src="<?php echo SITE_URL?>./assets/image/products/product-1.png" class="img-fluid">
+							</span>
+						</a>
+					</div>
+					<!-- End Column 4 -->
+
+		      	</div>
+		    </div>
+</div>
+<?php include_once '../templates/footer.php'; ?>
