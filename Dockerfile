@@ -1,8 +1,21 @@
-# Use official PHP image with Apache
-FROM php:8.2-apache
+version: '3.8'
 
-# Copy all project files into web server root
-COPY . /var/www/html/
+services:
+  web:
+    build: .
+    ports:
+      - "8080:80"
+    volumes:
+      - .:/var/www/html
+    depends_on:
+      - db
 
-# Expose port 80 for web access
-EXPOSE 80
+  db:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: ecommerce
+      MYSQL_USER: user
+      MYSQL_PASSWORD: userpassword
+    ports:
+      - "3306:3306"
