@@ -1,22 +1,13 @@
 <?php
+$host = 'localhost';
+$db   = 'ecommerce_db';
+$user = 'root';  // or your DB username
+$pass = '';      // your password if any
 
-    require_once 'config.php';
-
-    define('DB_SERVER', 'localhost');
-    define('DB_USER','root');
-    define('DB_PASSWORD', '');
-    define('DB_NAME','ecommerce_db');
-
-    function getDbConnection() {
-        $conn = mysqli_connect(DB_SERVER, DB_USER, DB_PASSWORD, DB_NAME);
-    if (mysqli_connect_errno()) {
-        die('Database connection Failed!...'. mysqli_connect_error());
-    }
-        return $conn;
-    }
-
-    getDbConnection();
-
-
-    
+try {
+    $pdo = new PDO("mysql:host=$host;dbname=$db;charset=utf8", $user, $pass);
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+} catch (PDOException $e) {
+    die("DB Connection Failed: " . $e->getMessage());
+}
 ?>
