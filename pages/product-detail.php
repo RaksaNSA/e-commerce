@@ -6,22 +6,22 @@
         'id' => 1,
         'name' => 'Nordic Chair',
         'price' => 50.00,
-        'description' => 'Elegant Nordic design chair with solid oak legs and comfortable cushioned seat. Perfect for modern living spaces and dining rooms.',
-        'features' => [
-            'Solid oak construction',
-            'Ergonomic design',
-            'Stain-resistant fabric',
-            'Available in multiple colors',
-            'Dimensions: 60cm x 55cm x 82cm (W x D x H)'
-        ],
+        // 'description' => 'Elegant Nordic design chair with solid oak legs and comfortable cushioned seat. Perfect for modern living spaces and dining rooms.',
+        // 'features' => [
+        //     'Solid oak construction',
+        //     'Ergonomic design',
+        //     'Stain-resistant fabric',
+        //     'Available in multiple colors',
+        //     'Dimensions: 60cm x 55cm x 82cm (W x D x H)'
+        // ],
         'image' => './assets/image/products/product-1.png',
-        'gallery' => [
-            './assets/image/products/product-1.png',
-            './assets/image/products/product-2.png',
-            './assets/image/products/product-3.png'
-        ],
-        'stock' => 15,
-        'category' => 'Chairs'
+        // 'gallery' => [
+        //     './assets/image/products/product-1.png',
+        //     './assets/image/products/product-2.png',
+        //     './assets/image/products/product-3.png'
+        // ],
+        // 'stock' => 15,
+        // 'category' => 'Chairs'
     ];
     
     $pageTitle = $product['name'] . ' - Product Details';
