@@ -1,6 +1,7 @@
 <?php require_once __DIR__ . '/../includes/config.php';?>
 <?php $pageTitle = 'Service'; ?>
 <?php include_once '../templates/header.php';?>
+<?php include_once '../templates/navegation.php';?>
 <?php include_once '../templates/hero_section.php';?>
 		<!-- Start Why Choose Us Section -->
 		<div class="why-choose-section">

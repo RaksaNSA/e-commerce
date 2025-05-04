@@ -1,4 +1,7 @@
-		<!-- Start Footer Section -->
+<?php 
+	require_once __DIR__ . '/../includes/config.php';
+?>
+<!-- Start Footer Section -->
 		<footer class="footer-section">
 			<div class="container relative">
 

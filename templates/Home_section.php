@@ -1,3 +1,5 @@
+<?php require_once('./includes/config.php')?>
+<?php include 'templates/header.php'?>
 		<!-- Start Product Section -->
 		<div class="product-section">
 			<div class="container">

@@ -1,31 +1,33 @@
 <?php global $pdo;
-require_once __DIR__ . '/../includes/config.php'; ?>
-<?php
-require_once __DIR__ . '/../includes/db.php';
+	require_once __DIR__ . '/../includes/config.php';
+	require_once __DIR__ . '/../includes/db.php';
+	require_once __DIR__ . '/../templates/navegation.php';
 ?>
 
 <?php 
-	$stmt = $pdo->query("SELECT * FROM products");
+	$stmt = $pdo->query('SELECT * FROM products');
 	$products = $stmt->fetchAll();
 ?>
-
 <?php $pageTitle = 'Home'; ?>
 <?php include_once '../templates/header.php'; ?>
 <div class="untree_co-section product-section before-footer-section">
 		    <div class="container">
 				
 				
-				<div class="row">
+			<div class="row">
 				<?php foreach ($products as $product): ?>
 					<div class="col-md-4 mb-4">
-						<a class="product-item" href="<?php echo SITE_URL?>?pages=product-detail&id=<?php echo $product['id']; ?>">
-						<img src="<?php echo SITE_URL; ?>./assets/image/products/<?php echo $product['image']; ?>" class="img-fluid">
-							<h3 class="product-title"><?php echo $product['name']; ?></h3>
-							<strong class="product-price">$<?php echo $product['price']; ?></strong>
+						<a class="product-item" href="<?php echo SITE_URL; ?>pages/product-detail.php?id=<?php echo $product['id']; ?>">
+							<img src="<?php echo SITE_URL; ?>/assets/image/products/<?php echo $product['image']; ?>" class="img-fluid" alt="<?php echo htmlspecialchars($product['name']); ?>">
+							<h3 class="product-title"><?php echo htmlspecialchars($product['name']); ?></h3>
+							<strong class="product-price">$<?php echo number_format($product['price'], 2); ?></strong>
 						</a>
 					</div>
 				<?php endforeach; ?>
-				</div>
+			</div>
+
+		      		<!-- Start Column 1 -->
+
 
 		      	<div class="row">
 

@@ -1,4 +1,6 @@
-		 <!-- Start Why Choose Us Section -->
+<?php require_once __DIR__ . '/../includes/config.php'?>;
+<?php include 'header.php'?>
+<!-- Start Why Choose Us Section -->
          <div class="why-choose-section">
 			<div class="container">
 				<div class="row justify-content-between">

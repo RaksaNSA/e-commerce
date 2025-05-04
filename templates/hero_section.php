@@ -1,3 +1,6 @@
+<?php require_once __DIR__ . '/../includes/config.php'; ?>
+<?php $pageTitle = 'Welcome to Home';?>
+<?php include 'header.php'?>
 		<!-- Start Hero Section -->
         <div class="hero">
 				<div class="container">

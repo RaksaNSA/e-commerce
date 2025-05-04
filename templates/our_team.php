@@ -1,3 +1,6 @@
+<?php require_once('../includes/config.php')?>
+<?php $pageTitle = 'Our Team';?>
+<?php include '../templates/header.php'?>
 	<!-- Start Team Section -->
     <div class="untree_co-section">
 			<div class="container">
@@ -63,5 +66,5 @@
 
 				</div>
 			</div>
-		</div>
-		<!-- End Team Section -->
+	</div>
+	<!-- End Team Section -->

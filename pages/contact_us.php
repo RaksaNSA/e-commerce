@@ -1,6 +1,7 @@
 <?php require_once __DIR__ . '/../includes/config.php'; ?>
 <?php $pageTitle = 'Contact Us'; ?>
 <?php include_once '../templates/header.php';?>
+<?php include_once '../templates/navegation.php';?>
 <?php include_once '../templates/hero_section.php';?>
 <!-- Start Contact Form -->
 <div class="untree_co-section">

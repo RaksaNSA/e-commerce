@@ -1,27 +1,29 @@
-<?php require_once __DIR__ . '/../includes/config.php'; ?>
 <?php 
-    // In a real application, you would fetch the product by ID from the database
-    // For demonstration purposes, we're using hardcoded data
+    require_once __DIR__ . '/../includes/config.php';
+    require_once __DIR__ . '/../includes/db.php';
+?>
+<?php 
+        
     $product = [
         'id' => 1,
         'name' => 'Nordic Chair',
         'price' => 50.00,
-        // 'description' => 'Elegant Nordic design chair with solid oak legs and comfortable cushioned seat. Perfect for modern living spaces and dining rooms.',
-        // 'features' => [
-        //     'Solid oak construction',
-        //     'Ergonomic design',
-        //     'Stain-resistant fabric',
-        //     'Available in multiple colors',
-        //     'Dimensions: 60cm x 55cm x 82cm (W x D x H)'
-        // ],
+        'description' => 'Elegant Nordic design chair with solid oak legs and comfortable cushioned seat. Perfect for modern living spaces and dining rooms.',
+        'features' => [
+            'Solid oak construction',
+            'Ergonomic design',
+            'Stain-resistant fabric',
+            'Available in multiple colors',
+            'Dimensions: 60cm x 55cm x 82cm (W x D x H)'
+        ],
         'image' => './assets/image/products/product-1.png',
-        // 'gallery' => [
-        //     './assets/image/products/product-1.png',
-        //     './assets/image/products/product-2.png',
-        //     './assets/image/products/product-3.png'
-        // ],
-        // 'stock' => 15,
-        // 'category' => 'Chairs'
+        'gallery' => [
+            './assets/image/products/product-1.png',
+            './assets/image/products/product-2.png',
+            './assets/image/products/product-3.png'
+        ],
+        'stock' => 15,
+        'category' => 'Chairs'
     ];
     
     $pageTitle = $product['name'] . ' - Product Details';
