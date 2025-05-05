@@ -1,34 +1,61 @@
 <?php 
-    require_once __DIR__ . '/../includes/config.php';
-    require_once __DIR__ . '/../includes/db.php';
-?>
-<?php 
-        
-    $product = [
-        'id' => 1,
-        'name' => 'Nordic Chair',
-        'price' => 50.00,
-        'description' => 'Elegant Nordic design chair with solid oak legs and comfortable cushioned seat. Perfect for modern living spaces and dining rooms.',
-        'features' => [
+require_once __DIR__ . '/../includes/config.php';
+require_once __DIR__ . '/../includes/db.php';
+require_once __DIR__ . '/../templates/header.php';
+require_once __DIR__ . '/../templates/navegation.php';
+
+// Check if product ID is provided
+if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
+    // Redirect to home page if no valid ID is provided
+    header('Location: ' . SITE_URL);
+    exit;
+}
+
+$product_id = (int)$_GET['id'];
+
+// Fetch product details from database
+try {
+    $stmt = $pdo->prepare('SELECT * FROM products WHERE id = ?');
+    $stmt->execute([$product_id]);
+    $product = $stmt->fetch(PDO::FETCH_ASSOC);
+    
+    // If no product found with that ID
+    if (!$product) {
+        header('Location: ' . SITE_URL);
+        exit;
+    }
+    
+    // You might want to fetch additional product data like features, gallery, etc.
+    // For now, we'll use sample data similar to your paste-2.txt
+    
+    // Example: Adding features if they don't exist in the database
+    if (!isset($product['features']) || empty($product['features'])) {
+        $product['features'] = [
             'Solid oak construction',
             'Ergonomic design',
             'Stain-resistant fabric',
             'Available in multiple colors',
             'Dimensions: 60cm x 55cm x 82cm (W x D x H)'
-        ],
-        'image' => './assets/image/products/product-1.png',
-        'gallery' => [
-            './assets/image/products/product-1.png',
-            './assets/image/products/product-2.png',
-            './assets/image/products/product-3.png'
-        ],
-        'stock' => 15,
-        'category' => 'Chairs'
-    ];
+        ];
+    }
+    
+    // Example: Adding gallery images if they don't exist
+    if (!isset($product['gallery']) || empty($product['gallery'])) {
+        $product['gallery'] = [
+            'product-1.png',
+            'product-2.png',
+            'product-3.png'
+        ];
+    }
     
     $pageTitle = $product['name'] . ' - Product Details';
+} catch (PDOException $e) {
+    // Handle database error
+    die("Database Error: " . $e->getMessage());
+}
+
+include_once '../templates/header.php';
 ?>
-<?php include_once '../templates/header.php'; ?>
 
 <div class="untree_co-section product-detail-section">
     <div class="container">
@@ -36,14 +63,14 @@
             <!-- Product Images -->
             <div class="col-12 col-md-6 mb-5">
                 <div class="product-detail-image mb-4">
-                    <img src="<?php echo SITE_URL . $product['image']; ?>" class="img-fluid main-product-image" alt="<?php echo htmlspecialchars($product['name']); ?>">
+                    <img src="<?php echo SITE_URL; ?>/assets/image/products/<?php echo $product['image']; ?>" class="img-fluid main-product-image" alt="<?php echo htmlspecialchars($product['name']); ?>">
                 </div>
                 
                 <!-- Product Gallery -->
                 <div class="product-thumbnail-gallery d-flex">
                     <?php foreach($product['gallery'] as $galleryImage): ?>
                     <div class="thumbnail-item me-2">
-                        <img src="<?php echo SITE_URL . $galleryImage; ?>" class="img-fluid product-thumbnail" alt="Product image">
+                        <img src="<?php echo SITE_URL; ?>/assets/image/products/<?php echo $galleryImage; ?>" class="img-fluid product-thumbnail" alt="Product image">
                     </div>
                     <?php endforeach; ?>
                 </div>
@@ -58,7 +85,7 @@
                 </div>
                 
                 <div class="product-description mb-4">
-                    <p><?php echo htmlspecialchars($product['description']); ?></p>
+                    <p><?php echo htmlspecialchars($product['description'] ?? 'No description available.'); ?></p>
                 </div>
                 
                 <!-- Product Features -->
@@ -74,7 +101,7 @@
                 <!-- Product Meta -->
                 <div class="product-meta mb-4">
                     <div class="stock-info mb-2">
-                        <?php if($product['stock'] > 0): ?>
+                        <?php if(isset($product['stock']) && $product['stock'] > 0): ?>
                         <span class="text-success">In Stock (<?php echo $product['stock']; ?> available)</span>
                         <?php else: ?>
                         <span class="text-danger">Out of Stock</span>
@@ -82,7 +109,7 @@
                     </div>
                     <div class="category-info">
                         <span>Category: </span>
-                        <a href="<?php echo SITE_URL; ?>/shop.php?category=<?php echo urlencode($product['category']); ?>"><?php echo htmlspecialchars($product['category']); ?></a>
+                        <a href="<?php echo SITE_URL; ?>/shop.php?category=<?php echo urlencode($product['category'] ?? 'Uncategorized'); ?>"><?php echo htmlspecialchars($product['category'] ?? 'Uncategorized'); ?></a>
                     </div>
                 </div>
                 
@@ -97,14 +124,14 @@
                                 <label for="quantity" class="visually-hidden">Quantity</label>
                                 <div class="input-group quantity-selector">
                                     <button type="button" class="btn btn-outline-black quantity-minus">-</button>
-                                    <input type="number" id="quantity" name="quantity" value="1" min="1" max="<?php echo $product['stock']; ?>" class="form-control text-center">
+                                    <input type="number" id="quantity" name="quantity" value="1" min="1" max="<?php echo $product['stock'] ?? 10; ?>" class="form-control text-center">
                                     <button type="button" class="btn btn-outline-black quantity-plus">+</button>
                                 </div>
                             </div>
                         </div>
                         
                         <div class="d-grid gap-2 d-md-block">
-                            <button type="submit" class="btn btn-primary btn-lg" <?php echo $product['stock'] <= 0 ? 'disabled' : ''; ?>>
+                            <button type="submit" class="btn btn-primary btn-lg" <?php echo (isset($product['stock']) && $product['stock'] <= 0) ? 'disabled' : ''; ?>>
                                 Add to Cart
                             </button>
                             <button type="button" class="btn btn-outline-primary btn-lg add-to-wishlist">
@@ -144,8 +171,8 @@
                 <div class="tab-content p-4 border border-top-0" id="productTabsContent">
                     <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">
                         <h4>Product Description</h4>
-                        <p>The Nordic Chair combines elegant Scandinavian design with practical comfort. Each chair is handcrafted with attention to detail, ensuring quality and longevity.</p>
-                        <p>The minimalist design fits perfectly in both modern and traditional interiors, making it a versatile addition to any home. The ergonomic shape provides excellent back support, making it comfortable for extended sitting.</p>
+                        <p><?php echo htmlspecialchars($product['description'] ?? 'The '.$product['name'].' combines elegant design with practical comfort. Each piece is crafted with attention to detail, ensuring quality and longevity.'); ?></p>
+                        <p>The minimalist design fits perfectly in both modern and traditional interiors, making it a versatile addition to any home.</p>
                     </div>
                     <div class="tab-pane fade" id="specifications" role="tabpanel" aria-labelledby="specifications-tab">
                         <h4>Technical Specifications</h4>
@@ -153,23 +180,23 @@
                             <tbody>
                                 <tr>
                                     <th>Materials</th>
-                                    <td>Solid oak wood, high-density foam, premium upholstery fabric</td>
+                                    <td><?php echo htmlspecialchars($product['materials'] ?? 'Premium quality materials'); ?></td>
                                 </tr>
                                 <tr>
                                     <th>Dimensions</th>
-                                    <td>Width: 60cm, Depth: 55cm, Height: 82cm</td>
+                                    <td><?php echo htmlspecialchars($product['dimensions'] ?? 'Please refer to product description'); ?></td>
                                 </tr>
                                 <tr>
                                     <th>Weight</th>
-                                    <td>7.5 kg</td>
+                                    <td><?php echo htmlspecialchars($product['weight'] ?? 'Please refer to product description'); ?></td>
                                 </tr>
                                 <tr>
                                     <th>Assembly</th>
-                                    <td>Easy assembly required, tools included</td>
+                                    <td><?php echo htmlspecialchars($product['assembly'] ?? 'Easy assembly required, tools included'); ?></td>
                                 </tr>
                                 <tr>
                                     <th>Warranty</th>
-                                    <td>2 years limited warranty</td>
+                                    <td><?php echo htmlspecialchars($product['warranty'] ?? '2 years limited warranty'); ?></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -188,19 +215,7 @@
                                     </div>
                                 </div>
                                 <p class="review-author text-muted small">By Sarah T. on March 15, 2025</p>
-                                <p class="review-text">I absolutely love this chair! The design is sleek and modern, and it fits perfectly with my dining set. It's also very comfortable for long dinners.</p>
-                            </div>
-                            
-                            <!-- Review Item -->
-                            <div class="review-item border-bottom pb-4 mb-4">
-                                <div class="d-flex justify-content-between mb-2">
-                                    <h5 class="mb-0">Solid quality</h5>
-                                    <div class="review-stars">
-                                        ★★★★☆ <span class="text-muted">(4/5)</span>
-                                    </div>
-                                </div>
-                                <p class="review-author text-muted small">By Michael D. on February 20, 2025</p>
-                                <p class="review-text">The chair is well-built and looks great in my home office. Assembly was straightforward, although one of the screws was slightly misaligned. Overall, I'm happy with my purchase.</p>
+                                <p class="review-text">I absolutely love this product! The design is sleek and modern, and it fits perfectly with my home decor.</p>
                             </div>
                             
                             <!-- Write a Review Form -->
@@ -269,97 +284,70 @@
             <div class="col-12">
                 <h3 class="section-title mb-4">You May Also Like</h3>
                 
+                <?php
+                // Get related products - you might want to adjust this query based on your needs
+                try {
+                    $category = $product['category'] ?? '';
+                    $stmt = $pdo->prepare("SELECT * FROM products WHERE id != ? " . 
+                                          ($category ? "AND category = ?" : "") . 
+                                          " ORDER BY RAND() LIMIT 4");
+                    
+                    if ($category) {
+                        $stmt->execute([$product_id, $category]);
+                    } else {
+                        $stmt->execute([$product_id]);
+                    }
+                    
+                    $related_products = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                } catch (PDOException $e) {
+                    $related_products = [];
+                }
+                ?>
+                
                 <div class="row">
-                    <!-- Related Product Item -->
-                    <div class="col-6 col-md-3 mb-4">
-                        <a class="product-item" href="#">
-                            <img src="<?php echo SITE_URL; ?>/assets/image/products/product-2.png" class="img-fluid product-thumbnail">
-                            <h3 class="product-title">Kruzo Aero Chair</h3>
-                            <strong class="product-price">$78.00</strong>
-                            <span class="icon-cross">
-                                <img src="<?php echo SITE_URL; ?>/assets/image/products/product-2.png" class="img-fluid">
-                            </span>
-                        </a>
-                    </div>
-                    
-                    <!-- Related Product Item -->
-                    <div class="col-6 col-md-3 mb-4">
-                        <a class="product-item" href="#">
-                            <img src="<?php echo SITE_URL; ?>/assets/image/products/product-3.png" class="img-fluid product-thumbnail">
-                            <h3 class="product-title">Ergonomic Chair</h3>
-                            <strong class="product-price">$43.00</strong>
-                            <span class="icon-cross">
-                                <img src="<?php echo SITE_URL; ?>/assets/image/products/product-3.png" class="img-fluid">
-                            </span>
-                        </a>
-                    </div>
-                    
-                    <!-- Related Product Item -->
-                    <div class="col-6 col-md-3 mb-4">
-                        <a class="product-item" href="#">
-                            <img src="<?php echo SITE_URL; ?>/assets/image/products/product-1.png" class="img-fluid product-thumbnail">
-                            <h3 class="product-title">Nordic Table</h3>
-                            <strong class="product-price">$95.00</strong>
-                            <span class="icon-cross">
-                                <img src="<?php echo SITE_URL; ?>/assets/image/products/product-1.png" class="img-fluid">
-                            </span>
-                        </a>
-                    </div>
-                    
-                    <!-- Related Product Item -->
-                    <div class="col-6 col-md-3 mb-4">
-                        <a class="product-item" href="#">
-                            <img src="<?php echo SITE_URL; ?>/assets/image/products/product-2.png" class="img-fluid product-thumbnail">
-                            <h3 class="product-title">Modern Lamp</h3>
-                            <strong class="product-price">$35.00</strong>
-                            <span class="icon-cross">
-                                <img src="<?php echo SITE_URL; ?>/assets/image/products/product-2.png" class="img-fluid">
-                            </span>
-                        </a>
-                    </div>
+                    <?php if (!empty($related_products)): ?>
+                        <?php foreach ($related_products as $related): ?>
+                            <div class="col-6 col-md-3 mb-4">
+                                <a class="product-item" href="<?php echo SITE_URL; ?>/pages/product-detail.php?id=<?php echo $related['id']; ?>">
+                                    <img src="<?php echo SITE_URL; ?>/assets/image/products/<?php echo $related['image']; ?>" class="img-fluid product-thumbnail">
+                                    <h3 class="product-title"><?php echo htmlspecialchars($related['name']); ?></h3>
+                                    <strong class="product-price">$<?php echo number_format($related['price'], 2); ?></strong>
+                                    <span class="icon-cross">
+                                        <img src="<?php echo SITE_URL; ?>/assets/image/products/<?php echo $related['image']; ?>" class="img-fluid">
+                                    </span>
+                                </a>
+                            </div>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <!-- Fallback related products if query returns no results -->
+                        <div class="col-6 col-md-3 mb-4">
+                            <a class="product-item" href="#">
+                                <img src="<?php echo SITE_URL; ?>/assets/image/products/product-2.png" class="img-fluid product-thumbnail">
+                                <h3 class="product-title">Kruzo Aero Chair</h3>
+                                <strong class="product-price">$78.00</strong>
+                                <span class="icon-cross">
+                                    <img src="<?php echo SITE_URL; ?>/assets/image/products/product-2.png" class="img-fluid">
+                                </span>
+                            </a>
+                        </div>
+                        
+                        <div class="col-6 col-md-3 mb-4">
+                            <a class="product-item" href="#">
+                                <img src="<?php echo SITE_URL; ?>/assets/image/products/product-3.png" class="img-fluid product-thumbnail">
+                                <h3 class="product-title">Ergonomic Chair</h3>
+                                <strong class="product-price">$43.00</strong>
+                                <span class="icon-cross">
+                                    <img src="<?php echo SITE_URL; ?>/assets/image/products/product-3.png" class="img-fluid">
+                                </span>
+                            </a>
+                        </div>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-<!-- Product Recently Viewed Section -->
-<div class="untree_co-section before-footer-section">
-    <div class="container">
-        <div class="row mb-4">
-            <div class="col-12">
-                <h3>Recently Viewed</h3>
-            </div>
-        </div>
-        <div class="row">
-            <!-- Recently Viewed Product -->
-            <div class="col-6 col-md-4 col-lg-2 mb-4">
-                <a class="product-item" href="#">
-                    <img src="<?php echo SITE_URL; ?>/assets/image/products/product-3.png" class="img-fluid product-thumbnail">
-                    <h3 class="product-title">Kruzo Aero Chair</h3>
-                    <strong class="product-price">$78.00</strong>
-                    <span class="icon-cross">
-                        <img src="<?php echo SITE_URL; ?>/assets/image/products/product-3.png" class="img-fluid">
-                    </span>
-                </a>
-            </div>
-            
-            <!-- Recently Viewed Product -->
-            <div class="col-6 col-md-4 col-lg-2 mb-4">
-                <a class="product-item" href="#">
-                    <img src="<?php echo SITE_URL; ?>/assets/image/products/product-1.png" class="img-fluid product-thumbnail">
-                    <h3 class="product-title">Nordic Table</h3>
-                    <strong class="product-price">$95.00</strong>
-                    <span class="icon-cross">
-                        <img src="<?php echo SITE_URL; ?>/assets/image/products/product-1.png" class="img-fluid">
-                    </span>
-                </a>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Product Recently Viewed Section -->
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     // Quantity selector functionality
