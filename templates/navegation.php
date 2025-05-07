@@ -26,7 +26,7 @@
 
     <ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
         <li><a class="nav-link" href="#"><i class="fa-solid fa-user"></i></a></li>
-        <li><a class="nav-link" href="<?php echo SITE_URL; ?>/pages/cart.php"><i class="fa-solid fa-cart-shopping"></i></a></li>
+        <li><a class="nav-link" href="<?php echo SITE_URL; ?>/pages/cart.php"><i class="fa-solid fa-cart-shopping"><span><?php ?> </span></i></a></li>
     </ul>
 </div>
 </div>

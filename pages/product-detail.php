@@ -130,10 +130,12 @@ include_once '../templates/header.php';
                             </div>
                         </div>
                         
-                        <div class="d-grid gap-2 d-md-block">
+                        
                             <button type="submit" class="btn btn-primary btn-lg" <?php echo (isset($product['stock']) && $product['stock'] <= 0) ? 'disabled' : ''; ?>>
                                 Add to Cart
                             </button>
+                     
+                        
                             <button type="button" class="btn btn-outline-primary btn-lg add-to-wishlist">
                                 <i class="bi bi-heart"></i> Add to Wishlist
                             </button>
@@ -221,7 +223,7 @@ include_once '../templates/header.php';
                             <!-- Write a Review Form -->
                             <div class="write-review mt-5">
                                 <h5>Write a Review</h5>
-                                <form action="<?php echo SITE_URL; ?>/product/review.php" method="post" class="review-form mt-3">
+                                <form action="<?php echo SITE_URL; ?>/pages/cart.php" method="post" class="review-form mt-3">
                                     <input type="hidden" name="product_id" value="<?php echo $product['id']; ?>">
                                     
                                     <div class="mb-3">

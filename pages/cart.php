@@ -35,7 +35,10 @@ $total = $subtotal + $shipping + $tax;
 $pageTitle = 'Shopping Cart';
 include_once '../templates/header.php';
 ?>
+<?php 
 
+
+?>
 <div class="untree_co-section">
     <div class="container">
         <div class="row mb-5">
@@ -105,6 +108,7 @@ include_once '../templates/header.php';
                                     <td>
                                         <a href="<?php echo SITE_URL; ?>/cart/remove.php?index=<?php echo $index; ?>" class="btn btn-sm btn-outline-danger">
                                             <i class="bi bi-trash"></i>
+                                            Remove
                                         </a>
                                     </td>
                                 </tr>
@@ -200,5 +204,3 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 </script>
-
-<?php include_once '../templates/footer.php'; ?>
