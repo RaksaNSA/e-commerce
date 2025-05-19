@@ -1,3 +1,9 @@
+<?php
+    require_once __DIR__ . '/../../includes/config.php';
+    require_once __DIR__ . '/../../includes/db.php';
+    require_once __DIR__ . '/../../templates/header.php';
+?>
+
 <!-- Sidebar Start -->
 <aside class="left-sidebar">
     <!-- Sidebar scroll-->
@@ -30,7 +36,7 @@
                     <span class="hide-menu">UI COMPONENTS</span>
                 </li> -->
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="#" aria-expanded="false">
+                    <a class="sidebar-link" href="<?php echo SITE_URL; ?>/admin/products.php" aria-expanded="false">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-basket">
                             <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                             <path d="M10 14a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
